@@ -19,4 +19,10 @@ public class RecipeServiceImpl implements RecipeService{
 		return reposRecipe.findAll();
 	}
 
+	@Override
+	public Recipe getRecipeById(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
