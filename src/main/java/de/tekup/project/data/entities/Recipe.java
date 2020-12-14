@@ -1,6 +1,7 @@
 package de.tekup.project.data.entities;
 
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -12,7 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
+import lombok.Data;
+
 @Entity
+@Data
 public class Recipe {
 	
 	@Id
@@ -28,9 +32,15 @@ public class Recipe {
 	private String directions;
 	
 	@OneToMany(mappedBy = "recipe")
-	private Set<Ingredient> ingredients;
+	private Set<Ingredient> ingredients = new HashSet<>();
 	
 	@Enumerated(value = EnumType.STRING)
-	private Difficulty difficult;
+	private Difficulty difficulty;
+	
+	public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
+    }
 
 }
