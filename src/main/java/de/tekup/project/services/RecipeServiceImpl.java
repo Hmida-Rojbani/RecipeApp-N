@@ -1,6 +1,7 @@
 package de.tekup.project.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,9 @@ public class RecipeServiceImpl implements RecipeService{
 
 	@Override
 	public Recipe getRecipeById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return reposRecipe.findById(id)
+						.orElseThrow(()-> new NoSuchElementException("Recipe with this id is not found"));
 	}
 
 }

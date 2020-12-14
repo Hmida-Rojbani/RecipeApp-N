@@ -1,21 +1,24 @@
 package de.tekup.project.controllers;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 import de.tekup.project.services.RecipeService;
 import lombok.AllArgsConstructor;
 
-@RestController
+
+@Controller
 @AllArgsConstructor
 public class RecipeController {
-
-	private RecipeService service;
+	
+	private RecipeService recipeService;
 	
 	@GetMapping("/recipe/{id}/show")
-	public String viewRecipe(@PathVariable("id") long id) {
-		
+	public String getShowRecipe(@PathVariable("id") long id, Model model) {
+		model.addAttribute("recipe", recipeService.getRecipeById(id));
 		return "recipe/show";
 	}
+
 }

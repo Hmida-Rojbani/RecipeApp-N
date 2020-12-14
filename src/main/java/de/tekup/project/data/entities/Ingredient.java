@@ -9,9 +9,11 @@ import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Ingredient {
 

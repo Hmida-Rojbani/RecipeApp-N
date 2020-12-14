@@ -1,6 +1,7 @@
 package de.tekup.project.data.entities;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,5 +43,10 @@ public class Recipe {
         this.ingredients.add(ingredient);
         return this;
     }
+	
+	public String getPrepTime() {
+		DateTimeFormatter form= DateTimeFormatter.ofPattern("hh 'Hour' mm 'Min'.");
+		return prepTime.format(form);
+	}
 
 }
