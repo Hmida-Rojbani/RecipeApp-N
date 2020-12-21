@@ -1,9 +1,14 @@
 package de.tekup.project.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import de.tekup.project.dto.models.IngredientRequest;
 import de.tekup.project.dto.models.UnitOfMeasureRequest;
@@ -48,6 +53,23 @@ public class IngredientController {
 		
 		model.addAttribute("uomList", uomService.listUOMs());
 		return "recipe/ingredient/ingredientform";
+	}
+	
+	// save Ingredient
+	@PostMapping("/recipe/{recipeId}/ingredient")
+	public String saveOrUpdate(@Valid @ModelAttribute("ingredient")IngredientRequest ingredient, BindingResult bindingResult,
+			@PathVariable("recipeId") long recipeId,Model model) {
+		// if errors of validation return to form
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("ingredient", ingredient);
+			
+			model.addAttribute("uomList", uomService.listUOMs());
+			return "recipe/ingredient/ingredientform";
+		}
+		
+		ingredientService.saveIngredient(ingredient);
+		
+		return "redirect:/recipe/"+ recipeId + "/ingredients";
 	}
 
 }
