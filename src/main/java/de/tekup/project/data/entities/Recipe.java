@@ -2,8 +2,8 @@ package de.tekup.project.data.entities;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,7 +33,7 @@ public class Recipe {
 	private String directions;
 	
 	@OneToMany(mappedBy = "recipe")
-	private Set<Ingredient> ingredients = new HashSet<>();
+	private List<Ingredient> ingredients = new ArrayList<>();
 	
 	@Enumerated(value = EnumType.STRING)
 	private Difficulty difficulty;
@@ -45,7 +45,7 @@ public class Recipe {
     }
 	
 	public String getPrepTime() {
-		DateTimeFormatter form= DateTimeFormatter.ofPattern("hh 'Hour' mm 'Min'.");
+		DateTimeFormatter form= DateTimeFormatter.ofPattern("HH 'Hour' mm 'Min'.");
 		return prepTime.format(form);
 	}
 
