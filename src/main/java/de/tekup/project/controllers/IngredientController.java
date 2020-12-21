@@ -71,5 +71,18 @@ public class IngredientController {
 		
 		return "redirect:/recipe/"+ recipeId + "/ingredients";
 	}
+	
+	// Update Ingredient
+		@GetMapping("/recipe/{recipeId}/ingredient/{id}/update")
+		public String updateIngredient(@PathVariable("recipeId") long recipeId,
+				@PathVariable("id") long id,Model model) {
+			IngredientRequest ingredient = ingredientService.findIngredientRequestById(id);
+			ingredient.setRecipeId(recipeId);
+			
+			model.addAttribute("ingredient", ingredient);
+			
+			model.addAttribute("uomList", uomService.listUOMs());
+			return "recipe/ingredient/ingredientform";
+		}
 
 }

@@ -6,4 +6,5 @@ public interface IngredientService {
 
 	void deleteById(long id);
 	IngredientRequest saveIngredient(IngredientRequest request);
+	IngredientRequest findIngredientRequestById(Long id);
 }
